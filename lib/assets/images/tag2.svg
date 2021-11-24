@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="tag2.svg"
+   id="svg6"
+   version="1.1"
+   class="feather feather-tag"
+   stroke-linejoin="round"
+   stroke-linecap="round"
+   stroke-width="1.5"
+   stroke="#C1C8D1"
+   fill="none"
+   viewBox="0 0 24 24"
+   height="32"
+   width="32">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg6"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:cy="14.141461"
+     inkscape:cx="15.392069"
+     inkscape:zoom="18.605747"
+     showgrid="false"
+     id="namedview8"
+     inkscape:window-height="1009"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <path
+     style="stroke-width:2.17221;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path2"
+     d="m 20.38518,13.666221 -6.919436,6.924826 a 1.9301074,1.9316111 0 0 1 -2.731102,0 L 2.4448297,12.304436 V 2.6463803 H 12.095367 L 20.38518,10.94265 a 1.9301074,1.9316111 0 0 1 0,2.723571 z" />
+  <line
+     style="stroke-width:2.25;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line4"
+     y2="7.3627911"
+     x2="7.4534116"
+     y1="7.3627911"
+     x1="7.4434114" />
+</svg>

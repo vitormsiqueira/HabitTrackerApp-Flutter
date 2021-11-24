@@ -12,6 +12,7 @@ class AppColors {
   final cyanLight = const Color(0xFFB4E3E0);
   final cyan = const Color(0xFF06A099);
   final cyanDark = const Color(0xFF08847e);
+  final cyanDarker = const Color(0xFF04817B);
 
   const AppColors();
 }
