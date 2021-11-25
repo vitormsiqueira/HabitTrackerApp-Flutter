@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myhabittracker/theme/app_theme.dart';
+import 'package:myhabittracker/theme/colors.dart';
 
 class MyFloatingButton extends StatelessWidget {
   const MyFloatingButton({
@@ -23,10 +23,10 @@ class MyFloatingButton extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.colors.cyanDarker,
+                color: AppColors.cyanDarker,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.colors.cyanDarker.withOpacity(0.35),
+                    color: AppColors.cyanDarker.withOpacity(0.35),
                     spreadRadius: 2,
                     blurRadius: 15,
                     offset: const Offset(0, 0),
@@ -37,7 +37,7 @@ class MyFloatingButton extends StatelessWidget {
                 "+",
                 style: TextStyle(
                   fontSize: 24,
-                  color: AppTheme.colors.white,
+                  color: AppColors.white,
                 ),
               ),
             ),

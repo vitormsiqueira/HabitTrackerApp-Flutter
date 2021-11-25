@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myhabittracker/theme/app_theme.dart';
+import 'package:myhabittracker/theme/colors.dart';
 import 'package:myhabittracker/widgets/bottom_nav_icon.dart';
 import 'package:myhabittracker/widgets/floating_button.dart';
 
@@ -15,11 +15,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Container(
       height: 65, // altura do botão mais os paddings
-      decoration: BoxDecoration(
-        color: AppTheme.colors.grayWhite,
+      decoration: const BoxDecoration(
+        color: AppColors.grayWhite,
         border: Border(
           top: BorderSide(
-            color: AppTheme.colors.graySilver,
+            color: AppColors.graySilver,
             width: 0.5,
           ),
         ),

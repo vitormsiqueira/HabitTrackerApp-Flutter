@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myhabittracker/theme/app_theme.dart';
+import 'package:myhabittracker/theme/colors.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -22,14 +22,14 @@ class MyAppBar extends StatelessWidget {
                   text: "Bom dia,",
                   style: GoogleFonts.montserrat(
                     fontSize: 14,
-                    color: AppTheme.colors.grayDark,
+                    color: AppColors.grayDark,
                   ),
                   children: <TextSpan>[
                     TextSpan(
                       text: '\nVitor Siqueira',
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
-                        color: AppTheme.colors.grayDarker,
+                        color: AppColors.grayDarker,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -63,12 +63,12 @@ class MyAppBar extends StatelessWidget {
       ],
       bottom: PreferredSize(
         child: Container(
-          color: AppTheme.colors.graySilver,
+          color: AppColors.graySilver,
           height: 0.5,
         ),
         preferredSize: const Size.fromHeight(2.0),
       ),
-      backgroundColor: AppTheme.colors.grayWhite,
+      backgroundColor: AppColors.grayWhite,
     );
   }
 }

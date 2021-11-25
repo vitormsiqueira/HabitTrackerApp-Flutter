@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myhabittracker/theme/app_theme.dart';
+import 'package:myhabittracker/theme/colors.dart';
 
 class MyBottomNavIcon extends StatelessWidget {
   final String iconPath;
@@ -17,7 +17,7 @@ class MyBottomNavIcon extends StatelessWidget {
         padding: const EdgeInsets.all(14.0),
         child: SvgPicture.asset(
           iconPath,
-          color: AppTheme.colors.graySilver,
+          color: AppColors.graySilver,
           height: 20,
         ),
       ),
