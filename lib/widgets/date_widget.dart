@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myhabittracker/theme/app_theme.dart';
 import 'package:myhabittracker/theme/colors.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// Used by [DateWidget] for tap detection.
 typedef DateSelectionCallback = void Function(DateTime selectedDate);
@@ -12,10 +15,13 @@ typedef DateChangeListener = void Function(DateTime selectedDate);
 class DateWidget extends StatefulWidget {
   final double? width;
   final DateTime date;
-  final TextStyle? dayTextStyle, weekTextStyle;
-  final String emojiPath;
+  final TextStyle? dayTextStyle,
+      weekTextStyle,
+      daySelectedTextStyle,
+      weekSelectedTextStyle;
+  String? emojiPath;
   final Color selectionColor;
-  final Color borderSelectionColor;
+  final Color borderSelectedColor;
   final DateSelectionCallback? onDateSelected;
 
   DateWidget({
@@ -23,9 +29,11 @@ class DateWidget extends StatefulWidget {
     this.width,
     required this.dayTextStyle,
     required this.weekTextStyle,
-    required this.emojiPath,
+    this.emojiPath,
     required this.selectionColor,
-    this.borderSelectionColor = AppColors.gray,
+    this.borderSelectedColor = AppColors.gray,
+    required this.daySelectedTextStyle,
+    required this.weekSelectedTextStyle,
     this.onDateSelected,
   });
 
@@ -34,8 +42,8 @@ class DateWidget extends StatefulWidget {
 }
 
 class _DateWidgetState extends State<DateWidget> {
-  Color _colorContainer = Colors.transparent;
-
+  bool selected = false;
+  bool emojiSelected = false;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -43,10 +51,10 @@ class _DateWidgetState extends State<DateWidget> {
         width: widget.width,
         margin: const EdgeInsets.all(7.0),
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-          color: _colorContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+          color: selected ? widget.selectionColor : Colors.transparent,
           border: Border.all(
-            color: widget.borderSelectionColor,
+            color: selected ? widget.borderSelectedColor : AppColors.gray,
             width: 1.0,
           ),
         ),
@@ -58,27 +66,169 @@ class _DateWidgetState extends State<DateWidget> {
             children: <Widget>[
               Text(
                 widget.date.day.toString(), // Date
-                style: widget.dayTextStyle,
+                style: selected
+                    ? widget.daySelectedTextStyle
+                    : widget.dayTextStyle,
               ),
               Text(
-                DateFormat('E').format(widget.date).toUpperCase(), // WeekDay
-                style: widget.weekTextStyle,
+                DateFormat('E', "pt_BR")
+                    .format(widget.date)
+                    .toUpperCase(), // WeekDay
+                style: selected
+                    ? widget.weekSelectedTextStyle
+                    : widget.weekTextStyle,
               ),
-              Image.asset(
-                widget.emojiPath,
-                width: 22,
-              )
+              widget.emojiPath != null
+                  ? Image.asset(
+                      widget.emojiPath.toString(),
+                      width: 25,
+                    )
+                  : Container(
+                      height: 23,
+                      width: 23,
+                      child: RawMaterialButton(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: selected
+                                    ? Colors.transparent
+                                    : AppColors.gray),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 21,
+                            color: selected ? AppColors.cyan : AppColors.gray,
+                          ),
+                        ),
+                        shape: CircleBorder(),
+                        elevation: 0.0,
+                        padding: EdgeInsets.all(0),
+                        fillColor:
+                            selected ? AppColors.cyanDarker : AppColors.white,
+                        onPressed: () {
+                          openMood();
+                        },
+                      ),
+                    )
             ],
           ),
         ),
       ),
       onTap: () {
         setState(() {
-          _colorContainer = _colorContainer == AppColors.cyanDark
-              ? AppColors.white
-              : AppColors.cyanDark;
+          selected = !selected;
         });
       },
+    );
+  }
+
+  Future openMood() => showDialog(
+        context: context,
+        builder: (context) => StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text(
+                "Como está se sentindo hoje?",
+                style: TextStyle(
+                  color: AppColors.grayDarker,
+                  fontSize: 22,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    child: EmojiMood(
+                      emojiSelected: emojiSelected,
+                      emojiPath: 'lib/assets/images/exausto.png',
+                    ),
+                    onTap: () {
+                      setState(() {
+                        emojiSelected = !emojiSelected;
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: EmojiMood(
+                      emojiSelected: emojiSelected,
+                      emojiPath: 'lib/assets/images/chateado.png',
+                    ),
+                    onTap: () {
+                      setState(() {
+                        emojiSelected = !emojiSelected;
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: EmojiMood(
+                      emojiSelected: emojiSelected,
+                      emojiPath: 'lib/assets/images/ok.png',
+                    ),
+                    onTap: () {
+                      setState(() {
+                        emojiSelected = !emojiSelected;
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: EmojiMood(
+                      emojiSelected: emojiSelected,
+                      emojiPath: 'lib/assets/images/bem.png',
+                    ),
+                    onTap: () {
+                      setState(() {
+                        emojiSelected = !emojiSelected;
+                      });
+                    },
+                  ),
+                  GestureDetector(
+                    child: EmojiMood(
+                      emojiSelected: emojiSelected,
+                      emojiPath: 'lib/assets/images/great.png',
+                    ),
+                    onTap: () {
+                      setState(() {
+                        emojiSelected = !emojiSelected;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      );
+}
+
+class EmojiMood extends StatelessWidget {
+  const EmojiMood({
+    Key? key,
+    required this.emojiSelected,
+    required this.emojiPath,
+  }) : super(key: key);
+
+  final String emojiPath;
+  final bool emojiSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 45,
+      height: 45,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: emojiSelected ? AppColors.cyanDark : Colors.transparent,
+          width: 3.0,
+        ),
+        shape: BoxShape.circle,
+      ),
+      child: Image.asset(
+        emojiPath,
+        width: 25,
+      ),
     );
   }
 }

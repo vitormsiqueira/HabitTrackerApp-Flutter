@@ -63,7 +63,7 @@ class MyAppBar extends StatelessWidget {
       ],
       bottom: PreferredSize(
         child: Container(
-          color: AppColors.graySilver,
+          color: AppColors.grayDark,
           height: 0.5,
         ),
         preferredSize: const Size.fromHeight(2.0),

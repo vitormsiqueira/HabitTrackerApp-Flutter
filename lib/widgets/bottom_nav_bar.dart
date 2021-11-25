@@ -19,7 +19,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         color: AppColors.grayWhite,
         border: Border(
           top: BorderSide(
-            color: AppColors.graySilver,
+            color: AppColors.grayDark,
             width: 0.5,
           ),
         ),

@@ -13,8 +13,8 @@ class TimeLineDate extends StatefulWidget {
   TimeLineDate(
     this.startDate, {
     Key? key,
-    this.height = 95,
-    this.width = 48,
+    this.height = 100,
+    this.width = 50,
     this.selectionColor = AppColors.cyanDark,
   });
 
@@ -45,13 +45,24 @@ class _TimeLineDateState extends State<TimeLineDate> {
               color: AppColors.grayDark,
               fontWeight: FontWeight.w800,
             ),
+            daySelectedTextStyle: GoogleFonts.montserrat(
+              fontSize: 18,
+              color: AppColors.white,
+              fontWeight: FontWeight.w800,
+            ),
             weekTextStyle: GoogleFonts.montserrat(
               fontSize: 10,
               color: AppColors.graySilver,
               fontWeight: FontWeight.w500,
             ),
-            emojiPath: 'lib/assets/images/great.png',
-            selectionColor: Colors.transparent,
+            weekSelectedTextStyle: GoogleFonts.montserrat(
+              fontSize: 10,
+              color: AppColors.white,
+              fontWeight: FontWeight.w500,
+            ),
+            //emojiPath: 'lib/assets/images/great.png',
+            selectionColor: AppColors.cyan,
+            borderSelectedColor: AppColors.cyanDarker,
           );
         },
       ),
