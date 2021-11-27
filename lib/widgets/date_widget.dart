@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myhabittracker/theme/app_theme.dart';
 import 'package:myhabittracker/theme/colors.dart';
@@ -43,7 +44,25 @@ class DateWidget extends StatefulWidget {
 
 class _DateWidgetState extends State<DateWidget> {
   bool selected = false;
-  bool emojiSelected = false;
+  // bool emojiSelected = false;
+
+  // Gera a lista que vai controlar as seleções
+  List<bool> isSelected = [];
+
+  List<String> moodName = [];
+
+  int selectedMood = 5;
+
+  @override
+  void initState() {
+    // this is for 3 buttons, add "false" same as the number of buttons here
+    isSelected = [false, false, false, false, false];
+
+    moodName = ['Exausto', 'Triste', 'Ok', 'Feliz', 'Ótimo', ''];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -128,105 +147,142 @@ class _DateWidgetState extends State<DateWidget> {
         builder: (context) => StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text(
+              title: Text(
                 "Como está se sentindo hoje?",
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: AppColors.grayDarker,
                   fontSize: 22,
+                  fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    child: EmojiMood(
-                      emojiSelected: emojiSelected,
-                      emojiPath: 'lib/assets/images/exausto.png',
+              content: Container(
+                alignment: Alignment.center,
+                height: 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      moodName[selectedMood],
+                      style: const TextStyle(
+                        color: AppColors.cyanDark,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    onTap: () {
-                      setState(() {
-                        emojiSelected = !emojiSelected;
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: EmojiMood(
-                      emojiSelected: emojiSelected,
-                      emojiPath: 'lib/assets/images/chateado.png',
+                    const SizedBox(
+                      height: 20,
                     ),
-                    onTap: () {
-                      setState(() {
-                        emojiSelected = !emojiSelected;
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: EmojiMood(
-                      emojiSelected: emojiSelected,
-                      emojiPath: 'lib/assets/images/ok.png',
+                    ToggleButtons(
+                      children: [
+                        EmojiMood(
+                          emojiPath: 'lib/assets/images/exausto.png',
+                          isSelected: isSelected[0],
+                        ),
+                        EmojiMood(
+                          emojiPath: 'lib/assets/images/chateado.png',
+                          isSelected: isSelected[1],
+                        ),
+                        EmojiMood(
+                          emojiPath: 'lib/assets/images/ok.png',
+                          isSelected: isSelected[2],
+                        ),
+                        EmojiMood(
+                          emojiPath: 'lib/assets/images/bem.png',
+                          isSelected: isSelected[3],
+                        ),
+                        EmojiMood(
+                          emojiPath: 'lib/assets/images/great.png',
+                          isSelected: isSelected[4],
+                        ),
+                      ],
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < isSelected.length; i++) {
+                            isSelected[i] = i == index;
+                            selectedMood = index;
+                          }
+                        });
+                      },
+                      isSelected: isSelected,
+                      renderBorder: false,
+                      fillColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                     ),
-                    onTap: () {
-                      setState(() {
-                        emojiSelected = !emojiSelected;
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: EmojiMood(
-                      emojiSelected: emojiSelected,
-                      emojiPath: 'lib/assets/images/bem.png',
-                    ),
-                    onTap: () {
-                      setState(() {
-                        emojiSelected = !emojiSelected;
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: EmojiMood(
-                      emojiSelected: emojiSelected,
-                      emojiPath: 'lib/assets/images/great.png',
-                    ),
-                    onTap: () {
-                      setState(() {
-                        emojiSelected = !emojiSelected;
-                      });
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    cancelButton,
+                    confirmButton,
+                  ],
+                )
+              ],
             );
           },
         ),
       );
 }
 
-class EmojiMood extends StatelessWidget {
+// set up the button
+Widget confirmButton = TextButton(
+  child: Text(
+    "Confirmar",
+    style: GoogleFonts.montserrat(
+      color: AppColors.cyanDark,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+  onPressed: () {},
+);
+
+// set up the button
+Widget cancelButton = TextButton(
+  child: Text(
+    "Cancelar",
+    style: GoogleFonts.montserrat(
+      color: AppColors.graySilver,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+  onPressed: () {},
+);
+
+class EmojiMood extends StatefulWidget {
   const EmojiMood({
     Key? key,
-    required this.emojiSelected,
     required this.emojiPath,
+    required this.isSelected,
   }) : super(key: key);
 
   final String emojiPath;
-  final bool emojiSelected;
+  final bool isSelected;
 
+  @override
+  State<EmojiMood> createState() => _EmojiMoodState();
+}
+
+class _EmojiMoodState extends State<EmojiMood> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 45,
       height: 45,
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: emojiSelected ? AppColors.cyanDark : Colors.transparent,
-          width: 3.0,
+          color: widget.isSelected ? AppColors.cyanDark : Colors.transparent,
+          width: 2.5,
         ),
         shape: BoxShape.circle,
       ),
       child: Image.asset(
-        emojiPath,
+        widget.emojiPath,
         width: 25,
       ),
     );
