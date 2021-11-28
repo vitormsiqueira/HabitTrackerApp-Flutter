@@ -22,8 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
         preferredSize: Size.fromHeight(75),
         child: MyAppBar(),
       ),
-      // Centraliza horizontalmente o Floating Button
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: MyBottomNavigationBar(),
       body: MyBodyInicio(),
     );

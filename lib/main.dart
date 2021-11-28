@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:myhabittracker/pages/home.dart';
+import 'package:myhabittracker/utils/emoji_moods.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      supportedLocales: [const Locale('pt', 'BR')],
+      // possibilita a troca de localização do idioma e hora
+      supportedLocales: const [Locale('pt', 'BR')],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       color: Colors.white,

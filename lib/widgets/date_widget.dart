@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:myhabittracker/theme/app_theme.dart';
 import 'package:myhabittracker/theme/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:myhabittracker/utils/emoji_moods.dart';
+import 'package:provider/provider.dart';
 
 /// Used by [DateWidget] for tap detection.
 typedef DateSelectionCallback = void Function(DateTime selectedDate);
@@ -51,7 +53,17 @@ class _DateWidgetState extends State<DateWidget> {
 
   List<String> moodName = [];
 
+  List<String> emojiMood = [
+    'lib/assets/images/exausto.png',
+    'lib/assets/images/chateado.png',
+    'lib/assets/images/ok.png',
+    'lib/assets/images/bem.png',
+    'lib/assets/images/great.png'
+  ];
+
   int selectedMood = 5;
+
+  String inputText = "";
 
   @override
   void initState() {
@@ -98,11 +110,14 @@ class _DateWidgetState extends State<DateWidget> {
                     : widget.weekTextStyle,
               ),
               widget.emojiPath != null
-                  ? Image.asset(
-                      widget.emojiPath.toString(),
-                      width: 25,
+                  ? GestureDetector(
+                      child: Image.asset(
+                        widget.emojiPath.toString(),
+                        width: 25,
+                      ),
+                      onTap: () => openMood(),
                     )
-                  : Container(
+                  : SizedBox(
                       height: 23,
                       width: 23,
                       child: RawMaterialButton(
@@ -120,16 +135,15 @@ class _DateWidgetState extends State<DateWidget> {
                             color: selected ? AppColors.cyan : AppColors.gray,
                           ),
                         ),
-                        shape: CircleBorder(),
+                        shape: const CircleBorder(),
                         elevation: 0.0,
-                        padding: EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
                         fillColor:
                             selected ? AppColors.cyanDarker : AppColors.white,
-                        onPressed: () {
-                          openMood();
-                        },
+                        // onPressed: () => _showSingleChoiceDialog(context),
+                        onPressed: () => openMood(),
                       ),
-                    )
+                    ),
             ],
           ),
         ),
@@ -158,7 +172,7 @@ class _DateWidgetState extends State<DateWidget> {
               ),
               content: Container(
                 alignment: Alignment.center,
-                height: 100,
+                height: 70,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -169,9 +183,6 @@ class _DateWidgetState extends State<DateWidget> {
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
                     ),
                     ToggleButtons(
                       children: [
@@ -199,7 +210,9 @@ class _DateWidgetState extends State<DateWidget> {
                       onPressed: (int index) {
                         setState(() {
                           for (int i = 0; i < isSelected.length; i++) {
+                            // print('INDEX ---------------> ' + index.toString());
                             isSelected[i] = i == index;
+                            // print('isSelected[i] ---> ' +     isSelected[i].toString());
                             selectedMood = index;
                           }
                         });
@@ -216,42 +229,67 @@ class _DateWidgetState extends State<DateWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    cancelButton,
-                    confirmButton,
+                    cancelButton(context),
+                    confirmButton(context, selectedMood),
                   ],
                 )
               ],
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              )),
             );
           },
         ),
-      );
+      ).then((valueFromDialog) {
+        // use the value as you wish
+        setState(() {
+          if (valueFromDialog != null) {
+            widget.emojiPath = emojiMood[valueFromDialog];
+          }
+        });
+      });
 }
 
 // set up the button
-Widget confirmButton = TextButton(
-  child: Text(
-    "Confirmar",
-    style: GoogleFonts.montserrat(
-      color: AppColors.cyanDark,
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
+Widget confirmButton(BuildContext context, int _selectedMood) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 12.0),
+    child: TextButton(
+      child: Text(
+        "Confirmar",
+        style: GoogleFonts.montserrat(
+          color: AppColors.cyanDark,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onPressed: () {
+        Navigator.pop(context, _selectedMood);
+      },
     ),
-  ),
-  onPressed: () {},
-);
+  );
+}
 
 // set up the button
-Widget cancelButton = TextButton(
-  child: Text(
-    "Cancelar",
-    style: GoogleFonts.montserrat(
-      color: AppColors.graySilver,
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
+Widget cancelButton(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 12.0),
+    child: TextButton(
+      child: Text(
+        "Cancelar",
+        style: GoogleFonts.montserrat(
+          color: AppColors.graySilver,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
     ),
-  ),
-  onPressed: () {},
-);
+  );
+}
 
 class EmojiMood extends StatefulWidget {
   const EmojiMood({

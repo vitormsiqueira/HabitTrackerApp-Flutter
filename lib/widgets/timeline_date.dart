@@ -13,7 +13,7 @@ class TimeLineDate extends StatefulWidget {
   TimeLineDate(
     this.startDate, {
     Key? key,
-    this.height = 100,
+    this.height = 105,
     this.width = 50,
     this.selectionColor = AppColors.cyanDark,
   });
