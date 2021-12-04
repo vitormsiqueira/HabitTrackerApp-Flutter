@@ -105,15 +105,9 @@ class _MyBodyInicioState extends State<MyBodyInicio>
                   Expanded(
                     child: TabBarView(
                       children: [
-                        Container(
-                          child: Text("hoje"),
-                        ),
-                        Container(
-                          child: Text("esta semana"),
-                        ),
-                        Container(
-                          child: Text("este mês"),
-                        ),
+                        TodayTabBar(),
+                        TodayTabBar(),
+                        TodayTabBar(),
                       ],
                     ),
                   ),
@@ -123,6 +117,74 @@ class _MyBodyInicioState extends State<MyBodyInicio>
           )
         ],
       ),
+    );
+  }
+}
+
+class TodayTabBar extends StatelessWidget {
+  const TodayTabBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Meus Hábitos',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      color: AppColors.grayDarker,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    '6',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      color: AppColors.gray,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: TextButton(
+                child: Text(
+                  'Ver todos',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12,
+                    color: AppColors.cyanDarker,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+        const Divider(
+          color: AppColors.gray,
+          thickness: 0.5,
+          height: 0.5,
+        ),
+      ],
     );
   }
 }
