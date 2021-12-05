@@ -102,7 +102,7 @@ class _MyBodyInicioState extends State<MyBodyInicio>
                       ],
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: TabBarView(
                       children: [
                         TodayTabBar(),
@@ -178,6 +178,53 @@ class TodayTabBar extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        const Divider(
+          color: AppColors.gray,
+          thickness: 0.5,
+          height: 0.5,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(top: 15, left: 20.0, right: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Você está quase lá, continue!',
+                style: GoogleFonts.montserrat(
+                  fontSize: 12,
+                  color: AppColors.grayDarker,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Text(
+                '67%',
+                style: GoogleFonts.montserrat(
+                  fontSize: 12,
+                  color: AppColors.gray,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(
+              left: 20.0, right: 20.0, bottom: 15.0, top: 10.0),
+          child: const ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            child: LinearProgressIndicator(
+              backgroundColor: AppColors.gray,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                AppColors.cyan,
+              ),
+              value: 0.67,
+            ),
+          ),
+          height: 31.0,
         ),
         const Divider(
           color: AppColors.gray,
