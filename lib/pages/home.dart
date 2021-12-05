@@ -5,6 +5,9 @@ import 'package:myhabittracker/theme/app_theme.dart';
 import 'package:myhabittracker/theme/colors.dart';
 import 'package:myhabittracker/widgets/app_bar.dart';
 import 'package:myhabittracker/widgets/bottom_nav_bar.dart';
+import 'package:myhabittracker/widgets/habit_list_header.dart';
+import 'package:myhabittracker/widgets/indicator_text_value.dart';
+import 'package:myhabittracker/widgets/linear_progress_indicator.dart';
 import 'package:myhabittracker/widgets/timeline_date.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -39,8 +42,6 @@ class MyBodyInicio extends StatefulWidget {
 
 class _MyBodyInicioState extends State<MyBodyInicio>
     with TickerProviderStateMixin {
-  late TabController _tabController;
-
   // @override
   // void initState() {
   //   _tabController = new TabController(length: 2, vsync: this);
@@ -61,7 +62,7 @@ class _MyBodyInicioState extends State<MyBodyInicio>
             width: MediaQuery.of(context).size.width,
             child: TimeLineDate(DateTime.now()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
@@ -72,7 +73,7 @@ class _MyBodyInicioState extends State<MyBodyInicio>
                 children: <Widget>[
                   Container(
                     constraints:
-                        const BoxConstraints.expand(height: 24, width: 320),
+                        const BoxConstraints.expand(height: 24, width: 310),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                       color: AppColors.grayWhite,
@@ -102,12 +103,12 @@ class _MyBodyInicioState extends State<MyBodyInicio>
                       ],
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: TabBarView(
                       children: [
-                        TodayTabBar(),
-                        TodayTabBar(),
-                        TodayTabBar(),
+                        _todayTabBar(),
+                        _thisWeekTabBar(),
+                        _thisMonthTabBar(),
                       ],
                     ),
                   ),
@@ -119,119 +120,48 @@ class _MyBodyInicioState extends State<MyBodyInicio>
       ),
     );
   }
-}
 
-class TodayTabBar extends StatelessWidget {
-  const TodayTabBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  _todayTabBar() {
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  Text(
-                    'Meus Hábitos',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      color: AppColors.grayDarker,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    '6',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      color: AppColors.gray,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: TextButton(
-                child: Text(
-                  'Ver todos',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 12,
-                    color: AppColors.cyanDarker,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-        const Divider(
-          color: AppColors.gray,
-          thickness: 0.5,
-          height: 0.5,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(top: 15, left: 20.0, right: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Você está quase lá, continue!',
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  color: AppColors.grayDarker,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              Text(
-                '67%',
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  color: AppColors.gray,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(
-              left: 20.0, right: 20.0, bottom: 15.0, top: 10.0),
-          child: const ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            child: LinearProgressIndicator(
-              backgroundColor: AppColors.gray,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                AppColors.cyan,
-              ),
-              value: 0.67,
-            ),
-          ),
-          height: 31.0,
-        ),
-        const Divider(
-          color: AppColors.gray,
-          thickness: 0.5,
-          height: 0.5,
-        ),
+        const HabitListHeader(habit_count: 6),
+        _divider(),
+        const IndicatorTextValue(indicator_value: 0.67),
+        const MyLinearProgressIndicator(indicator_value: 0.67),
+        _divider()
       ],
+    );
+  }
+
+  _thisWeekTabBar() {
+    return Column(
+      children: [
+        const HabitListHeader(habit_count: 4),
+        _divider(),
+        const IndicatorTextValue(indicator_value: 0.45),
+        const MyLinearProgressIndicator(indicator_value: 0.45),
+        _divider()
+      ],
+    );
+  }
+
+  _thisMonthTabBar() {
+    return Column(
+      children: [
+        const HabitListHeader(habit_count: 22),
+        _divider(),
+        const IndicatorTextValue(indicator_value: 0.76),
+        const MyLinearProgressIndicator(indicator_value: 0.76),
+        _divider()
+      ],
+    );
+  }
+
+  _divider() {
+    return const Divider(
+      color: AppColors.gray,
+      thickness: 0.5,
+      height: 0.5,
     );
   }
 }
